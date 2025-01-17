@@ -7,7 +7,7 @@
 |---------|----------|
 | ✅ | Constructor Injection |
 |✅ | Service Configuration (config/services.php) |
-|❌ | Parameter Injection |
+|✅| Parameter Injection |
 |❌ | Autowiring Support |
 
 ### PSR-4 Autoloader

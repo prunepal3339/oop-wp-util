@@ -2,6 +2,7 @@
 namespace WPOOPUtil\DependencyInjection;
 use Exception;
 use ReflectionClass;
+use ReflectionParameter;
 class Container
 {
     private $services = [];
@@ -48,17 +49,29 @@ class Container
         $dependencies = [];
 
         foreach ($parameters as $parameter) {
-            $dependencyClass = $parameter->getClass();
-
-            if ($dependencyClass) {
-                $dependencies[] = $this->get($dependencyClass->name);
-            } else {
-                // adds argument based resolution
-                throw new Exception(
-                    "Unable to resolve parameter '{$parameter}'"
-                );
-            }
+            $dependencies[] = $this->resolveDependency($parameter);
         }
         return $reflectionClass->newInstanceArgs($dependencies);
+    }
+    private function resolveDependency(ReflectionParameter $parameter)
+    {
+        $dependencyClass = $parameter->getClass();
+
+        if ($dependencyClass) {
+            return $this->get($dependencyClass->getName());
+        }
+
+        //Parameter injection
+        $paramName = $parameter->getName();
+        if (isset($this->parameters[$paramName])) {
+            return $this->parameters[$paramName];
+        }
+        if ($parameter->isDefaultValueAvailable()) {
+            return $parameter->getDefaultValue();
+        }
+
+        throw new \Exception(
+            "Unable to resolve parameter {$parameter->getName()} for class {$parameter->getDeclaringClass()->getName()}"
+        );
     }
 }

@@ -5,9 +5,12 @@
 
 | Status | Features |
 |---------|----------|
-| ✅ | Constructor Injection |
-|✅ | Service Configuration (config/services.php) |
+|✅| Constructor Injection |
+|✅| Service Configuration (config/services.php) |
 |✅| Parameter Injection |
-|❌ | Autowiring Support |
+|✅| Autowiring Support |
 
 ### PSR-4 Autoloader
+
+### Post Proxy: Entity-Repository Pattern
+

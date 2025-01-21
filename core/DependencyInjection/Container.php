@@ -21,7 +21,6 @@ class Container
         if (!isset($this->services[$name])) {
             throw new Exception("Service ${name} not found.");
         }
-
         $service = $this->services[$name];
         if (is_callable($service)) {
             $instance = $service($this);
@@ -55,10 +54,15 @@ class Container
     }
     private function resolveDependency(ReflectionParameter $parameter)
     {
-        $dependencyClass = $parameter->getClass();
+        //autowiring support
+        $type = $parameter->getType();
 
-        if ($dependencyClass) {
-            return $this->get($dependencyClass->getName());
+        //CHECK IF PARAMETER TYPE IS NOT BUILTIN DATA TYPE
+        if ($type && !$type->isBuiltIn()) {
+            $dependencyClass = new ReflectionClass($type->getName());
+            if ($dependencyClass->isInstantiable()) {
+                return $this->get($dependencyClass->getName());
+            }
         }
 
         //Parameter injection

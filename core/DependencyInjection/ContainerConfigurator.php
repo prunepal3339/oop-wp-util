@@ -11,8 +11,9 @@ class ContainerConfigurator
     }
     public function addConfigFile(string $path): void
     {
-        $this->serviceConfigFiles[] = $path;s
+        $this->serviceConfigFiles[] = $path;
     }
+
     public function configure(): void
     {
 

@@ -1,7 +1,7 @@
 <?php
 namespace WPOOPUtil\Admin;
 use WPOOPUtil\View\AbstractView;
-abstract class AdminPage extends AbstractView
+abstract class AbstractAdminPage extends AbstractView
 {
     protected string $pageTitle;
     protected string $menuTitle;

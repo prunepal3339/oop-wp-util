@@ -39,5 +39,4 @@ $configurator = new ContainerConfigurator($container);
 $pathLoader = new ServiceConfigPathLoader();
 $serviceConfigFiles = $pathLoader->getServiceConfigFiles();
 $configurator->configure($serviceConfigFiles);
-o
 /* END OF DEPENDENCY INJECTION CONTAINER */
